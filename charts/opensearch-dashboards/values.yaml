@@ -147,7 +147,7 @@ hostAliases: []
 serverHost: "0.0.0.0"
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   # The IP family and IP families options are to set the behaviour in a dual-stack environment
   # Omitting these values will let the service fall back to whatever the CNI dictates the defaults
   # should be
@@ -160,26 +160,26 @@ service:
   nodePort: ""
   labels: {}
   annotations: {}
-  loadBalancerSourceRanges: []
+  #loadBalancerSourceRanges: []
   # 0.0.0.0/0
   httpPortName: http
 
 ingress:
-  enabled: false
+  enabled: true
   # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
   # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
   # ingressClassName: nginx
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+     kubernetes.io/ingress.class: nginx
+     kubernetes.io/tls-acme: "true"
   labels: {}
   hosts:
     - host: chart-example.local
       paths:
         - path: /
           backend:
-            serviceName: ""
-            servicePort: ""
+            serviceName: "dashboard-opensearch-dashboards"
+            servicePort: "5601"
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
