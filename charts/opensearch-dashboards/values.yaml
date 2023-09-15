@@ -179,7 +179,7 @@ ingress:
         - path: /
           backend:
             serviceName: "dashboard-opensearch-dashboards"
-            servicePort: "5601"
+            servicePort: 5601
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
